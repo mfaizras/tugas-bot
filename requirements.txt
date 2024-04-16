@@ -2,4 +2,3 @@ python-dotenv
 discord.py
 bs4
 requests
-mysql
