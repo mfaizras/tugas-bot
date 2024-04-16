@@ -3,4 +3,5 @@ discord.py
 bs4
 requests
 asyncio
-dateutil
+python-dateutil
+pytz
