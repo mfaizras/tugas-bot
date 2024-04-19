@@ -1,4 +1,9 @@
 from models.TugasModel import TugasDataHandler
+from datetime import datetime
+from dateutil import parser
+import pytz
+from dotenv import load_dotenv
+import os
 class Course:
     def __init__(self, course: dict):
         self.title:str = course['title']
@@ -9,6 +14,8 @@ class Course:
             self.data.append(
                 DataPerCourse(data)
             )
+        load_dotenv()
+
     def to_dict(self) -> dict:
         course_dict = {
             'title': self.title,
@@ -27,7 +34,13 @@ class Course:
         return DetailCourse(detail)
     
     def tugas_data_handler(self,source='MODDLE')-> TugasDataHandler:
-        return TugasDataHandler((None,int(self.event_id),source,self.title,self.detail_course().course_title,self.detail_course().description,self.detail_course().deadline,self.detail_course().assign_url))
+        linkDate = self.data[0].link
+        timestamp = linkDate.split("=")[-1]
+        dateObj = datetime.fromtimestamp(float(timestamp)).astimezone(pytz.timezone(os.getenv('TIMEZONE')))
+        timeObj = parser.parse(self.detail_course().deadline.split(",")[-1].split("»")[0])
+        dateObj = dateObj.replace(hour=timeObj.hour,minute=timeObj.minute)
+        
+        return TugasDataHandler((None,int(self.event_id),source,self.title,self.detail_course().course_title,self.detail_course().description,dateObj.strftime("%m/%d/%Y, %H:%M:%S"),self.detail_course().assign_url))
 
 class DetailCourse:
     def __init__(self, data) -> None:

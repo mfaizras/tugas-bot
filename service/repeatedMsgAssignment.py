@@ -18,9 +18,9 @@ class repeatedMsgService:
           load_dotenv()
 
     def get_time_difference(self,deadline):
-        deadline = datetime.fromisoformat(deadline).replace(tzinfo=None)
-        timeNow = datetime.now()
-        timeNow = pytz.timezone(os.getenv('TIMEZONE')).localize(timeNow).replace(tzinfo=None)
+        deadline = datetime.fromisoformat(deadline).replace(tzinfo=pytz.timezone(os.getenv('TIMEZONE')))
+        timeNow = datetime.now(pytz.timezone(os.getenv('TIMEZONE')))
+        # timeNow = pytz.timezone(os.getenv('TIMEZONE')).localize(timeNow)
 
         time_difference = deadline - timeNow
         return time_difference
