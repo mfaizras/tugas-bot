@@ -51,6 +51,7 @@ class Tugas(commands.Cog):
 	async def send_message(self):
 		SystemMessage.log("Checking Upcoming Task, Repeated Service")
 		await self.serviceTugas.send_repeated_message()
+		await self.serviceTugas.notify_new_assignment()
 		
 	@commands.command(name='tugas', help='Show List Upcoming Assignment')
 	async def tugas(self, ctx):

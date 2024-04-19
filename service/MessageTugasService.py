@@ -3,6 +3,7 @@ from service.repeatedMsgAssignment import repeatedMsgService
 import datetime
 import os
 from service.SystemMessage import SystemMessage
+from models.TugasModel import TugasModel
 
 class MessageTugasService:
     def __init__(self,bot:discord) -> None:
@@ -36,4 +37,26 @@ class MessageTugasService:
                     await target_channel.send(message)
                     for i, embed in enumerate(embedList):
                         await target_channel.send(embed=embed)
+        SystemMessage().log("Service Assignment Repeated Message Complete")
+
+    async def notify_new_assignment(self):
+        message_automation = repeatedMsgService()
+        model = TugasModel()
+        embedList = message_automation.get_embed_new_assignment()
+        if embedList != []:
+            target_channel_name = os.getenv("CHANNEL_NAME")
+
+            for guild in self.bot.guilds:
+                target_channel = discord.utils.get(guild.channels, name=target_channel_name)
+                if target_channel == None:
+                    target_channel = await self.create_new_channel(guild,target_channel_name)
+
+                if target_channel:
+                    message = ""
+                    message += "***Tugas Baru***\n"
+                    await target_channel.send(message)
+                    for i, embed in enumerate(embedList):
+                        print(embed)
+                        await target_channel.send(embed=embed)    
+
         SystemMessage().log("Service Assignment Repeated Message Complete")

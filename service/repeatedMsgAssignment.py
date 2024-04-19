@@ -47,6 +47,13 @@ class repeatedMsgService:
         # print(assignmentToNotif)
         return assignmentToNotif
     
+    def get_new_assignment(self):
+        assignmentList = self.tugas.get_tugas_not_send()
+        assignmentToNotif = []
+        for i, course in enumerate(assignmentList):
+           assignmentToNotif.append(course)
+        return assignmentToNotif
+    
     def get_embed(self):
         assignment_list = self.get_assignment_to_notif()
         if assignment_list != []:
@@ -57,5 +64,19 @@ class repeatedMsgService:
                 embed.append(embedTemp)
         else :
             embed = []
+        return embed
+    
+    def get_embed_new_assignment(self):
+        model = TugasModel()
+        assignment_list = self.get_new_assignment()
+        if assignment_list != []:
+            embed = []
+            embedObj = MessageEmbedService()
+            for i,course in enumerate(assignment_list):
+                embedTemp = embedObj.embed_tugas(course)
+                embed.append(embedTemp)
+        else :
+            embed = []
+        model.update_notified(assignment_list)
         return embed
     

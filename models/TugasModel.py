@@ -30,7 +30,7 @@ class TugasModel:
         self.db = Database().db
         cursor = self.db.cursor()
         try:
-            cursor.execute("CREATE TABLE IF NOT EXISTS tugas (id INTEGER PRIMARY KEY AUTOINCREMENT,assignment_id INTEGER,assignment_source TEXT, title TEXT,course_name TEXT, description TEXT, deadline TEXT, assignment_url TEXT)")
+            cursor.execute("CREATE TABLE IF NOT EXISTS tugas (id INTEGER PRIMARY KEY AUTOINCREMENT,assignment_id INTEGER,assignment_source TEXT, title TEXT,course_name TEXT, description TEXT, deadline TEXT, assignment_url TEXT, is_send INTEGER default(0))")
         except Error as e:
             print(e)
         self.db.commit()
@@ -54,6 +54,19 @@ class TugasModel:
         timeNow = timeNow.isoformat()
 
         sql = f"SELECT * FROM tugas WHERE deadline > '{timeNow}'"
+
+        try:
+            data = cursor.execute(sql)
+            datas = data.fetchall()
+            return [TugasDataHandler(dat) for i,dat in enumerate(datas)]
+        except Error as e:
+            print(e)
+            return []
+        
+    def get_tugas_not_send(self):
+        cursor = self.db.cursor()
+
+        sql = f"SELECT * FROM tugas WHERE is_send = 0"
 
         try:
             data = cursor.execute(sql)
@@ -92,6 +105,14 @@ class TugasModel:
             print(e)
         
         self.db.commit()
+
+    def update_notified(self, datas:list[TugasDataHandler]):
+        cursor = self.db.cursor()
+        for i, data in enumerate(datas):
+            print(data.id)
+            cursor.execute(f"UPDATE tugas SET is_send = 1 WHERE id = {int(data.id)}")
+        self.db.commit()
+
         
 
 
