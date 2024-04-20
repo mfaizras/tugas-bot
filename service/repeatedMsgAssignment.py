@@ -19,13 +19,15 @@ class repeatedMsgService:
 
     def get_time_difference(self,deadline):
         deadline = datetime.fromisoformat(deadline).replace(tzinfo=pytz.timezone(os.getenv('TIMEZONE')))
-        timeNow = datetime.now(pytz.timezone(os.getenv('TIMEZONE')))
+        timeNow = datetime.now(pytz.timezone(os.getenv('TIMEZONE'))).replace(tzinfo=pytz.timezone(os.getenv('TIMEZONE')))
         # timeNow = pytz.timezone(os.getenv('TIMEZONE')).localize(timeNow)
 
         print(deadline)
         print(timeNow)
 
         time_difference = deadline - timeNow
+
+        print(time_difference)
         return time_difference
 
     def get_assignment_to_notif(self):
