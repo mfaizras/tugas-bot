@@ -9,9 +9,8 @@ from dotenv import load_dotenv
 class MessageEmbedService():
     def get_time_difference(self,deadline):
         load_dotenv()
-        deadline = datetime.datetime.fromisoformat(deadline).replace(tzinfo=None)
-        timeNow = datetime.datetime.now()
-        timeNow = pytz.timezone(os.getenv('TIMEZONE')).localize(timeNow).replace(tzinfo=None)
+        deadline = datetime.datetime.fromisoformat(deadline).replace(tzinfo=pytz.timezone(os.getenv('TIMEZONE')))
+        timeNow = datetime.datetime.now(pytz.timezone(os.getenv('TIMEZONE'))).replace(tzinfo=pytz.timezone(os.getenv('TIMEZONE')))
 
         time_difference = deadline - timeNow
         return time_difference
