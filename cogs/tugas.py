@@ -55,6 +55,7 @@ class Tugas(commands.Cog):
 		
 	@commands.command(name='tugas', help='Show List Upcoming Assignment')
 	async def tugas(self, ctx):
+		SystemMessage().log("Command /tugas Raised")
 		tugas = TugasModel()
 		embedService = MessageEmbedService()
 		datas = tugas.get_upcoming_tugas()
