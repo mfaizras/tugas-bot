@@ -59,8 +59,6 @@ class Tugas(commands.Cog):
 		embedService = MessageEmbedService()
 		datas = tugas.get_upcoming_tugas()
 
-		print(type(ctx))
-
 		countDatas = len(datas)
 		if countDatas == 0:
 			await ctx.send(f"Tidak Ada tugas dalam Waktu Dekat, Selamat Beristirahat :person_in_bed:")
@@ -68,7 +66,6 @@ class Tugas(commands.Cog):
 
 		await ctx.send(f"**Terdapat {countDatas} Tugas yang akan datang**")
 		for i, data in enumerate(datas):
-			print(data)
 			await ctx.send(embed=embedService.embed_tugas(data))
 
 
