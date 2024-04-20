@@ -68,6 +68,7 @@ class Tugas(commands.Cog):
 
 		await ctx.send(f"**Terdapat {countDatas} Tugas yang akan datang**")
 		for i, data in enumerate(datas):
+			print(data)
 			await ctx.send(embed=embedService.embed_tugas(data))
 
 

@@ -22,6 +22,9 @@ class repeatedMsgService:
         timeNow = datetime.now(pytz.timezone(os.getenv('TIMEZONE')))
         # timeNow = pytz.timezone(os.getenv('TIMEZONE')).localize(timeNow)
 
+        print(deadline)
+        print(timeNow)
+
         time_difference = deadline - timeNow
         return time_difference
 
