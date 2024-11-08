@@ -32,17 +32,17 @@ class repeatedMsgService:
         for i, course in enumerate(assignmentList):
             
             time_difference = self.get_time_difference(course.deadline)
-            time_difference_minutes = time_difference.total_seconds() // 60
-            time_difference_hour = time_difference.total_seconds() // 3600
+            time_difference_minutes = round(time_difference.total_seconds() / 60)
+            time_difference_hour = round(time_difference.total_seconds() / 3600)
             time_difference_days = time_difference.days
 
-            if time_difference_minutes > 0 and 59 <= time_difference_minutes <= 60: #check if under 1 hour
+            if time_difference_minutes > 0 and time_difference_minutes == 60: #check if under 1 hour
                     assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and 359 <= time_difference_minutes <= 360: # check deadline in 6 hour with tolerance 2 minute 
+            elif time_difference_hour > 0 and 359 <= time_difference_minutes == 360: # check deadline in 6 hour with tolerance 2 minute 
                     assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and 719 <= time_difference_minutes <= 720: # check deadline in 12 hour with tolerance 2 minute
+            elif time_difference_hour > 0 and 719 <= time_difference_minutes == 720: # check deadline in 12 hour with tolerance 2 minute
                     assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and 1439 <= time_difference_minutes <= 1440: # check deadline in 24 hour with tolerance 2 minute
+            elif time_difference_hour > 0 and 1439 <= time_difference_minutes == 1440: # check deadline in 24 hour with tolerance 2 minute
                     assignmentToNotif.append(course)
         # print(assignmentToNotif)
         return assignmentToNotif
