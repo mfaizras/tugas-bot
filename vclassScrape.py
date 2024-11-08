@@ -1,4 +1,4 @@
-from scraper.MoodleScraper import MoodleScraper
+from scraper.MoodleScraper1 import MoodleScraper
 import os
 from dotenv import load_dotenv
 from models.TugasModel import TugasModel,TugasDataHandler

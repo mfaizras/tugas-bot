@@ -42,12 +42,12 @@ class Tugas(commands.Cog):
 		await asyncio.sleep(minutes_to_wait)
 		self.send_message.start()
 
-	@tasks.loop(minutes=30,reconnect=True)
+	@tasks.loop(minutes=1,reconnect=True)
 	async def scrapeTugas(self):
 		SystemMessage.log("Task for Scraping Tugas")
 		runScrapper.scrape_assignment()
 
-	@tasks.loop(minutes=5,reconnect=True) 
+	@tasks.loop(minutes=1,reconnect=True) 
 	async def send_message(self):
 		SystemMessage.log("Checking Upcoming Task, Repeated Service")
 		await self.serviceTugas.send_repeated_message()

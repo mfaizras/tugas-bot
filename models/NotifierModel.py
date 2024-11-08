@@ -24,13 +24,13 @@ class TugasDataHandler:
         self.deadline:str = date.isoformat()
         self.assignment_url:str = tugas[7]
 
-class TugasModel:
+class NotifyModel:
     def __init__(self) -> None:
         load_dotenv()
         self.db = Database().db
         cursor = self.db.cursor()
         try:
-            cursor.execute("CREATE TABLE IF NOT EXISTS tugas (id INTEGER PRIMARY KEY AUTOINCREMENT,assignment_id INTEGER,assignment_source TEXT, title TEXT,course_name TEXT, description TEXT, deadline TEXT, assignment_url TEXT, is_send INTEGER default(0))")
+            cursor.execute("CREATE TABLE IF NOT EXISTS notify (id INTEGER PRIMARY KEY AUTOINCREMENT,assignment_id INTEGER,date TEXT, send_at TEXT")
         except Error as e:
             print(e)
         self.db.commit()
@@ -94,7 +94,6 @@ class TugasModel:
         try:
             for i, data in enumerate(datas):
                 if data.assignment_id != None and ((int(data.assignment_id) in dataId and data.assignment_source == "VCLASS") or (int(data.assignment_id) in dataId and data.assignment_source == "IFLAB")):
-                    cursor.execute("UPDATE tugas title = ?, course_name = ?, description = ?, deadline = ? WHERE assignment_id = ? AND assignment_source = ?",[data.title,data.course_name,data.description,data.deadline,data.assignment_id,data.assignment_source])
                     continue
                 if data.assignment_id == None:
                     cursor.execute("INSERT INTO tugas (assignment_source,title,course_name,description,deadline,assignment_url) VALUES (?,?,?,?,?,?)",[data.assignment_source,data.title,data.course_name,data.description,data.deadline,data.assignment_url])

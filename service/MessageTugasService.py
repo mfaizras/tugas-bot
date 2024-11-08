@@ -1,5 +1,5 @@
 import discord
-from service.repeatedMsgAssignment import repeatedMsgService
+from service.newRepeatedMsgAssignment import repeatedMsgService
 import datetime
 import os
 from service.SystemMessage import SystemMessage
