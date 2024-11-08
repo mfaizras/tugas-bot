@@ -94,9 +94,9 @@ class TugasModel:
         try:
             for i, data in enumerate(datas):
                 if data.assignment_id != None and ((int(data.assignment_id) in dataId and data.assignment_source == "VCLASS") or (int(data.assignment_id) in dataId and data.assignment_source == "IFLAB")):
-                    cursor.execute("UPDATE tugas title = ?, course_name = ?, description = ?, deadline = ? WHERE assignment_id = ? AND assignment_source = ?",[data.title,data.course_name,data.description,data.deadline,data.assignment_id,data.assignment_source])
+                    cursor.execute("UPDATE tugas SET title = ?, course_name = ?, description = ?, deadline = ? WHERE assignment_id = ? AND assignment_source = ?",[data.title,data.course_name,data.description,data.deadline,data.assignment_id,data.assignment_source])
                     continue
-                
+
                 if data.assignment_id == None:
                     cursor.execute("INSERT INTO tugas (assignment_source,title,course_name,description,deadline,assignment_url) VALUES (?,?,?,?,?,?)",[data.assignment_source,data.title,data.course_name,data.description,data.deadline,data.assignment_url])
                 else :            
