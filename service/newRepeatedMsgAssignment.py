@@ -31,19 +31,23 @@ class repeatedMsgService:
         assignmentToNotif = []
         for i, course in enumerate(assignmentList):
             
+            isOpens = course.title.split()[-1] == "opens"
             time_difference = self.get_time_difference(course.deadline)
             time_difference_minutes = round(time_difference.total_seconds() / 60)
             time_difference_hour = round(time_difference.total_seconds() / 3600)
             time_difference_days = time_difference.days
-
-            if time_difference_minutes > 0 and time_difference_minutes == 60: #check if under 1 hour
+            if isOpens:
+                 if time_difference_minutes > 0 and time_difference_minutes == 60: #check if under 1 hour
                     assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and time_difference_minutes == 360: # check deadline in 6 hour with tolerance 2 minute 
-                    assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and time_difference_minutes == 720: # check deadline in 12 hour with tolerance 2 minute
-                    assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and time_difference_minutes == 1440: # check deadline in 24 hour with tolerance 2 minute
-                    assignmentToNotif.append(course)
+            else :
+                if time_difference_minutes > 0 and time_difference_minutes == 60: #check if under 1 hour
+                        assignmentToNotif.append(course)
+                elif time_difference_hour > 0 and time_difference_minutes == 360: # check deadline in 6 
+                        assignmentToNotif.append(course)
+                elif time_difference_hour > 0 and time_difference_minutes == 720: # check deadline in 12 hour 
+                        assignmentToNotif.append(course)
+                elif time_difference_hour > 0 and time_difference_minutes == 1440: # check deadline in 24 hour 
+                        assignmentToNotif.append(course)
         # print(assignmentToNotif)
         return assignmentToNotif
     
