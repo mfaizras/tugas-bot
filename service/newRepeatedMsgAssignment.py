@@ -38,11 +38,11 @@ class repeatedMsgService:
 
             if time_difference_minutes > 0 and time_difference_minutes == 60: #check if under 1 hour
                     assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and 359 <= time_difference_minutes == 360: # check deadline in 6 hour with tolerance 2 minute 
+            elif time_difference_hour > 0 and time_difference_minutes == 360: # check deadline in 6 hour with tolerance 2 minute 
                     assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and 719 <= time_difference_minutes == 720: # check deadline in 12 hour with tolerance 2 minute
+            elif time_difference_hour > 0 and time_difference_minutes == 720: # check deadline in 12 hour with tolerance 2 minute
                     assignmentToNotif.append(course)
-            elif time_difference_hour > 0 and 1439 <= time_difference_minutes == 1440: # check deadline in 24 hour with tolerance 2 minute
+            elif time_difference_hour > 0 and time_difference_minutes == 1440: # check deadline in 24 hour with tolerance 2 minute
                     assignmentToNotif.append(course)
         # print(assignmentToNotif)
         return assignmentToNotif
