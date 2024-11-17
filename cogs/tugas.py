@@ -39,7 +39,7 @@ class Tugas(commands.Cog):
 		minutes_to_wait = time_difference.total_seconds()
 		
 		self.scrapeTugas.start()
-		await asyncio.sleep(minutes_to_wait)
+		# await asyncio.sleep(minutes_to_wait)
 		self.send_message.start()
 
 	@tasks.loop(minutes=1,reconnect=True)
