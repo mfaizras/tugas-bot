@@ -23,7 +23,7 @@ class MessageEmbedService():
 
         if(isOpens):
             dlText = "Akan Dibuka dalam"
-            dlSign = "Dibuka Dalam"
+            dlSign = "Dibuka pada"
             color = discord.Color.from_rgb(0, 153, 51)
         time_difference = self.get_time_difference(course.deadline)
         time_difference_minutes = time_difference.total_seconds() // 60
