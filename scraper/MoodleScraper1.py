@@ -35,7 +35,6 @@ class MoodleScraper:
             cookieData = cookie
             self.session.cookies.update(cookieData)
 
-        print(self.__authenticate())
         if self.__authenticate() == False:
             print(f"\033[85m{datetime.datetime.now()} \033[0m  \033[96m[LOG]\033[0m \033[32m Login Moodle Failed\033[0m")
             raise ValueError("Login Error! Make Sure email and Password are valid")
@@ -134,7 +133,6 @@ class MoodleScraper:
 
         response = self.session.get(logoutLink)
 
-        # print(response.text)
         if "You are not logged in." in response.text:
             return "Successfully logged out"
         else :
