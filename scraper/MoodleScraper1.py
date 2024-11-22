@@ -61,6 +61,7 @@ class MoodleScraper:
     
     def __checkAuth(self):
         checkReq = self.session.get(self.dashboard_url)
+        print(checkReq.status_code)
         if 'You are logged in as' in checkReq.text and checkReq.status_code == 200:
             return True
         else :
